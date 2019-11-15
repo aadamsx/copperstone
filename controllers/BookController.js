@@ -40,14 +40,14 @@ exports.bookList = [
 /**
  * Book Detail.
  * 
- * @param {string}      id
+ * @param {string}      bookId
  * 
  * @returns {Object}
  */
 exports.bookDetail = [
 	auth,
 	function (req, res) {
-		if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+		if(!mongoose.Types.ObjectId.isValid(req.params.bookId)){
 			return apiResponse.successResponseWithData(res, "Operation success", {});
 		}
 		try {
@@ -129,7 +129,7 @@ exports.bookUpdate = [
 	body("title", "Title must not be empty.").isLength({ min: 1 }).trim(),
 	body("description", "Description must not be empty.").isLength({ min: 1 }).trim(),
 	body("isbn", "ISBN must not be empty").isLength({ min: 1 }).trim().custom((value,{req}) => {
-		return Book.findOne({isbn : value,user: req.user._id, _id: { "$ne": req.params.id }}).then(book => {
+		return Book.findOne({isbn : value,user: req.user._id, _id: { "$ne": req.params.bookId }}).then(book => {
 			if (book) {
 				return Promise.reject("Book already exist with this ISBN no.");
 			}
@@ -185,7 +185,7 @@ exports.bookUpdate = [
 /**
  * Book Delete.
  * 
- * @param {string}      id
+ * @param {string}      bookId
  * 
  * @returns {Object}
  */

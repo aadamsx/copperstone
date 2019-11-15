@@ -11,6 +11,14 @@ let transporter = nodemailer.createTransport({
 	}
 });
 
+// let transporter = nodemailer.createTransport({
+// 	service: process.env.EMAIL_SMPT_SERVICE,
+// 	auth: {
+// 				user: process.env.EMAIL_SMTP_USERNAME,
+// 				pass: process.env.EMAIL_SMTP_PASSWORD
+// 		 }
+//  });
+
 exports.send = function (from, to, subject, html)
 {
 	// send mail with defined transport object
